@@ -1,6 +1,6 @@
-import Product from '../models/products.model.js'; //intancia del modelo es Product
+import Product from '../models/products.model.js'; 
 
-const productDAO = {};//Objeto 
+const productDAO = {};
 
 productDAO.getAll = async () => {
     try {
@@ -8,7 +8,7 @@ productDAO.getAll = async () => {
         return products;
     } catch (error) {
         console.error(error);
-        return { status: "Error al obtener todos los productos" };
+        return { error: "Error al obtener todos los productos" };
     }
 };
 
@@ -18,18 +18,18 @@ productDAO.getOne = async (bc) => {
         return product;
     } catch (error) {
         console.error(error);
-        return { status: "Error al obtener el producto" };
+        return { error: "Error al obtener el producto" };
     }
 };
 
 productDAO.insertProduct = async (product) => {
     try {
         const productSaved = new Product(product);
-        await productSaved.save(); //Para guardar la instancia del modelo product
+        await productSaved.save();
         return { status: "Producto insertado exitosamente" };
     } catch (error) {
         console.error(error);
-        return { status: "Error al insertar el producto" };
+        return { error: "Error al insertar el producto" };
     }
 };
 
@@ -43,21 +43,21 @@ productDAO.updateProduct = async (bc, product) => {
         }
     } catch (error) {
         console.error(error);
-        return { status: "Error al actualizar el producto" };
+        return { error: "Error al actualizar el producto" };
     }
 };
 
 productDAO.deleteProduct = async (bc) => {
     try {
         const productDelete = await Product.findOneAndDelete({ barcode: bc });
-        if (productDelete != bc) {
+        if (productDelete != null) {
             return { status: "Producto eliminado exitosamente" };
         } else {
             return { status: "No se pudo eliminar el producto" };
         }
     } catch (error) {
         console.error(error);
-        return { status: "Error al eliminar el producto" };
+        return { error: "Error al eliminar el producto" };
     }
 };
 
