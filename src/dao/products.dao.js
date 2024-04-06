@@ -1,4 +1,4 @@
-import Product from '../models/products.model.js'; 
+import Product from '../models/products.model.js';
 
 const productDAO = {};
 
@@ -39,7 +39,7 @@ productDAO.updateProduct = async (bc, product) => {
         if (productUpdated != null) {
             return { status: "Producto actualizado exitosamente" };
         } else {
-            return { status: "No se pudo actualizar el producto" };
+            return { error: "No se pudo actualizar el producto" };
         }
     } catch (error) {
         console.error(error);
@@ -53,7 +53,7 @@ productDAO.deleteProduct = async (bc) => {
         if (productDelete != null) {
             return { status: "Producto eliminado exitosamente" };
         } else {
-            return { status: "No se pudo eliminar el producto" };
+            return { error: "No se pudo eliminar el producto" };
         }
     } catch (error) {
         console.error(error);

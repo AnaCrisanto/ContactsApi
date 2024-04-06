@@ -24,9 +24,9 @@ export const getOne = async (req, res) => {
 
 export const insertProduct = async (req, res) => {
     try {
-        await productDAO.insertProduct(req.body);
+        const result = await productDAO.insertProduct(req.body);
         console.log("Producto insertado:", req.body);
-        res.json({ status: "Producto insertado exitosamente" });
+        res.json(result);
     } catch (error) {
         console.error("Error al insertar el producto:", error);
         res.status(500).json({ error: "Servidor no disponible" });
@@ -35,9 +35,9 @@ export const insertProduct = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
     try {
-        await productDAO.updateProduct(req.params.barcode, req.body);
+        const result = await productDAO.updateProduct(req.params.barcode, req.body);
         console.log("Producto actualizado:", req.body);
-        res.json({ status: "Producto actualizado exitosamente" });
+        res.json(result);
     } catch (error) {
         console.error("Error al actualizar el producto:", error);
         res.status(500).json({ error: "Servidor no disponible" });
@@ -46,9 +46,9 @@ export const updateProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
     try {
-        await productDAO.deleteProduct(req.params.bc);
+        const result = await productDAO.deleteProduct(req.params.bc);
         console.log("Producto eliminado:", req.params.bc);
-        res.json({ status: "Producto eliminado exitosamente" });
+        res.json(result);
     } catch (error) {
         console.error("Error al eliminar el producto:", error);
         res.status(500).json({ error: "Servidor no disponible" });
