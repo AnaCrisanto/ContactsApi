@@ -1,31 +1,13 @@
-import { Router } from "express";
-import { getAll, getOne, insertProduct, updateProduct, deleteProduct } from "../controllers/products.controller.js";
+import express from 'express';
+import ProductController from '../controllers/product.controller.js';
 
-const router = Router();
+const router = express.Router();
 
-router.get('/', async (req, res) => {
-    const result = await getAll(req, res);
-    res.json(result);
-});
-
-router.get('/:barcode', async (req, res) => {
-    const result = await getOne(req, res);
-    res.json(result);
-});
-
-router.post('/', async (req, res) => {
-    const result = await insertProduct(req, res);
-    res.json(result);
-});
-
-router.put('/:barcode', async (req, res) => {
-    const result = await updateProduct(req, res);
-    res.json(result);
-});
-
-router.delete('/delete/:bc', async (req, res) => {
-    const result = await deleteProduct(req, res);
-    res.json(result);
-});
+// Rutas para la API de productos
+router.post('/products', ProductController.insertProduct);
+router.get('/products', ProductController.getAllProducts);
+router.get('/products/:barcode', ProductController.getProductByBarcode);
+router.put('/products/:barcode', ProductController.updateProductByBarcode);
+router.delete('/products/:barcode', ProductController.deleteProductByBarcode);
 
 export default router;

@@ -1,56 +1,62 @@
-import productDAO from '../dao/products.dao.js';
+import ProductDAO from '../dao/product.dao.js';
 
-export const getAll = async (req, res) => {
+const ProductController = {
+  async insertProduct(req, res) {
     try {
-        const products = await productDAO.getAll();
-        console.log("Todos los productos fueron mostrados:", products);
-        res.json(products);
+      const product = await ProductDAO.insert(req.body);
+      res.status(201).json(product);
     } catch (error) {
-        console.error("Error al mostrar todos los productos:", error);
-        res.status(500).json({ error: "Servidor no disponible" });
+      res.status(500).json({ error: error.message });
     }
-};
+  },
 
-export const getOne = async (req, res) => {
+  async getAllProducts(req, res) {
     try {
-        const product = await productDAO.getOne(req.params.barcode);
-        console.log("Producto mostrado:", product);
+      const products = await ProductDAO.getAll();
+      res.json(products);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+
+  async getProductByBarcode(req, res) {
+    try {
+      const product = await ProductDAO.getByBarcode(req.params.barcode);
+      if (product) {
         res.json(product);
+      } else {
+        res.status(404).json({ message: 'Producto no encontrado' });
+      }
     } catch (error) {
-        console.error("Error al mostrar el producto:", error);
-        res.status(500).json({ error: "Servidor no disponible" });
+      res.status(500).json({ error: error.message });
     }
+  },
+
+  async updateProductByBarcode(req, res) {
+    try {
+      const product = await ProductDAO.updateByBarcode(req.params.barcode, req.body);
+      if (product) {
+        res.json(product);
+      } else {
+        res.status(404).json({ message: 'Producto no encontrado' });
+      }
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+
+  async deleteProductByBarcode(req, res) {
+    try {
+      const result = await ProductDAO.deleteByBarcode(req.params.barcode);
+      if (result.deletedCount > 0) {
+        res.json({ message: 'Producto eliminado correctamente' });
+      } else {
+        res.status(404).json({ message: 'Producto no encontrado' });
+      }
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 };
 
-export const insertProduct = async (req, res) => {
-    try {
-        const result = await productDAO.insertProduct(req.body);
-        console.log("Producto insertado:", req.body);
-        res.json(result);
-    } catch (error) {
-        console.error("Error al insertar el producto:", error);
-        res.status(500).json({ error: "Servidor no disponible" });
-    }
-};
-
-export const updateProduct = async (req, res) => {
-    try {
-        const result = await productDAO.updateProduct(req.params.barcode, req.body);
-        console.log("Producto actualizado:", req.body);
-        res.json(result);
-    } catch (error) {
-        console.error("Error al actualizar el producto:", error);
-        res.status(500).json({ error: "Servidor no disponible" });
-    }
-};
-
-export const deleteProduct = async (req, res) => {
-    try {
-        const result = await productDAO.deleteProduct(req.params.bc);
-        console.log("Producto eliminado:", req.params.bc);
-        res.json(result);
-    } catch (error) {
-        console.error("Error al eliminar el producto:", error);
-        res.status(500).json({ error: "Servidor no disponible" });
-    }
-};
+export default ProductController;
