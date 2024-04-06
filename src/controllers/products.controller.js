@@ -1,4 +1,4 @@
-import ProductDAO from '../dao/product.dao.js';
+import ProductDAO from '../dao/products.dao.js';
 
 const ProductController = {
   async insertProduct(req, res) {
