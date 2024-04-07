@@ -1,12 +1,12 @@
 {
-  "name": "api-groceries",
+  "name": "apicontactos",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "up": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "Ana Karen Crisanto Reyes",
