@@ -18,11 +18,9 @@ const contactSchema = new mongoose.Schema({
     unique: true
   },
   phone: {
-    type: String
-  },
-  mobile: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   birthday: {
     type: Date,
