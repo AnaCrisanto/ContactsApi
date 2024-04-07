@@ -30,9 +30,6 @@ const contactSchema = new mongoose.Schema({
   },
   address: {
     type: String
-  },
-  photo: {
-    type: String // Aquí se almacenará la URL de la foto en la BD
   }
 }
 ,
